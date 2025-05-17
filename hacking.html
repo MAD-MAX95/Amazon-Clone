@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hacking Simulator</title>
+  <style>
+    body {
+      background-color: black;
+      color: limegreen;
+      font-family: 'Courier New', monospace;
+      padding: 20px;
+      font-size: 1.2rem;
+    }
+
+    .line {
+      margin: 10px 0;
+    }
+
+    .blinking-dots::after {
+      content: '';
+      animation: dots 1s steps(3, end) infinite;
+    }
+
+    @keyframes dots {
+      0%   { content: ''; }
+      33%  { content: '.'; }
+      66%  { content: '..'; }
+      100% { content: '...'; }
+    }
+  </style>
+</head>
+<body>
+
+  <div id="terminal"></div>
+
+  <script>
+    let terminal = document.getElementById("terminal");
+    let messages = [
+      "Initializing Hacking",
+      "Reading your Files",
+      "Password files Detected",
+      "Sending all passwords and personal files to server",
+      "Cleaning up",
+      "You are hacked"
+    ];
+
+    let showMessage = async () => {
+      for (let msg of messages) {
+        let line = document.createElement("div");
+        line.classList.add("line", "blinking-dots");
+        line.textContent = msg;
+        terminal.appendChild(line);
+
+        // Wait 1 to 7 seconds
+        let delay = Math.floor(Math.random() * 7000) + 1000;
+        await new Promise((res) => setTimeout(res, delay));
+
+        // Stop blinking after delay
+        line.classList.remove("blinking-dots");
+        line.textContent += "...";
+      }
+    };
+
+    showMessage();
+  </script>
+</body>
+</html>
